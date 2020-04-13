@@ -6,16 +6,16 @@ import java.util.Random;
 
 public class Board {
 
-    private Counter[][] cells = new Counter[3][3];
+    private final Counter[][] cells = new Counter[3][3];
 
     private Player firstPlayer;
     private Player humanPlayer;
     private Player computerPlayer;
-    private Random rand = new Random();
 
     public Board() {
         Log.d(this.getClass().getSimpleName(), "constructor()");
         // Randomly allocate user to X or O
+        Random rand = new Random();
         int r = rand.nextInt(100);
         if (r > 49) {
             firstPlayer = new Player(new Counter(Counter.X));

@@ -1,8 +1,10 @@
 package com.jjh.android.tictactoe;
 
+import androidx.annotation.NonNull;
+
 public class Player {
 
-    protected Counter counter;
+    protected final Counter counter;
 
     public Player(Counter counter) {
         this.counter = counter;
@@ -13,8 +15,9 @@ public class Player {
     }
 
     @Override
+    @NonNull
     public String toString() {
-        final StringBuffer sb = new StringBuffer("Player(");
+        final StringBuilder sb = new StringBuilder("Player(");
         sb.append(counter);
         sb.append(')');
         return sb.toString();

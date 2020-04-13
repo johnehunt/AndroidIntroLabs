@@ -1,10 +1,12 @@
 package com.jjh.android.tictactoe;
 
+import androidx.annotation.NonNull;
+
 public class Move {
 
-    private int x;
-    private int y;
-    private Counter counter;
+    private final int x;
+    private final int y;
+    private final Counter counter;
 
     public Move(int x, int y, Counter counter) {
         this.x = x;
@@ -25,6 +27,7 @@ public class Move {
     }
 
     @Override
+    @NonNull
     public String toString() {
         return "Move(" + x + ", " + y + ": " + counter + ")";
     }

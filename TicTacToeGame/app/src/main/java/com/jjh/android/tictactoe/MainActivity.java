@@ -142,7 +142,7 @@ public class MainActivity extends AppCompatActivity {
             finished = true;
         }
         if (!finished && board.isFull()) {
-            showTieMessage(player);
+            showTieMessage();
             finished = true;
         }
         return finished;
@@ -154,7 +154,7 @@ public class MainActivity extends AppCompatActivity {
                 .show();
     }
 
-    private void showTieMessage(Player player) {
+    private void showTieMessage() {
         Log.d(this.getClass().getSimpleName(), "showWinnerMessage()");
         Toast.makeText(MainActivity.this, "The Game was a Tie!!", Toast.LENGTH_LONG)
                 .show();

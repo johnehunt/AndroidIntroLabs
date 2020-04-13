@@ -6,15 +6,15 @@ import java.util.Random;
 
 public class ComputerPlayer extends Player {
 
-    private Board board;
-    private Random random = new Random();
+    private final Board board;
+    private final Random random = new Random();
 
     public ComputerPlayer(Counter counter, Board board) {
         super(counter);
         this.board = board;
     }
 
-    public Move randomlySelectMove() {
+    private Move randomlySelectMove() {
         Log.d(this.getClass().getSimpleName(), "randomlySelectMove()");
         // Use a simplistic random selection approach
         // to find a cell to fill.
