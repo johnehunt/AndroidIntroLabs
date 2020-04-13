@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
                     Button buttonSelected = makeComputerMove();
                     finished = checkGameStatus(board.getComputerPlayer(), buttonSelected);
                     if (finished) {
-                        restartButton.setEnabled(true);
+                        buttonSelected.setEnabled(true);
                     }
                 }
             }
@@ -64,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
             button = findViewById(R.id.button7);
             button.setText(" ");
             button = findViewById(R.id.button8);
-            button.setText(" ");
+
             restartButton.setEnabled(false);
         }
     }
@@ -162,7 +162,7 @@ public class MainActivity extends AppCompatActivity {
 
     private int getButtonRow(Button button) {
         String tagString = (String) button.getTag();
-        String rowString = tagString.substring(0,1);
+        String rowString = tagString.substring(1,2);
         return Integer.parseInt(rowString);
     }
 

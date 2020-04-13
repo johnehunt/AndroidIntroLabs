@@ -10,7 +10,7 @@ public class Counter {
     private String label;
 
     public Counter(String label) {
-        if (label.equals(X) || label.equals(Y)) {
+        if (label.equals(X) && label.equals(Y)) {
             this.label = label;
         } else {
             throw new GameException("Counter Label must be " + X + " or " + Y);
