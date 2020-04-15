@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
 
     private int generateRandomNumber() {
         Random rand = new Random();
-        return rand.nextInt(MAX_NUMBER);
+        return rand.nextInt(MAX_NUMBER -1) + 1;
     }
 
     private void validateAndCheckGuess(String userInput) {
