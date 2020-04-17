@@ -171,4 +171,8 @@ public class MainActivity extends AppCompatActivity {
         String colString = tagString.substring(2,3);
         return Integer.parseInt(colString);
     }
+
+    protected Board getBoard() {
+        return board;
+    }
 }
