@@ -31,7 +31,8 @@ public class MainActivity extends AppCompatActivity {
         title.setText(title.getText().toString() + MAX_NUMBER);
     }
 
-    public void onGuessSubmit(View view) {
+    // Handle button click
+    public void onGuessButtonClick(View view) {
         String userInput = userGuessTextField.getText().toString();
         validateAndCheckGuess(userInput);
     }
