@@ -12,7 +12,11 @@ import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
 
-    private final static int MAX_NUMBER = 10;
+    private static final int MAX_NUMBER = 10;
+    private static final String CORRECT_MSG = "You guessed correctly! The number was ";
+    private static final String INVALID_MSG = "Invalid input (input must be between 1 and " + MAX_NUMBER + ")";
+    private static final String HIGHER_MSG = "The correct answer is higher";
+    private static final String LOWER_MSG = "The correct answer is lower";
 
     private EditText userGuessTextField;
     private int numberToGuess;
@@ -39,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
 
     private int generateRandomNumber() {
         Random rand = new Random();
-        return rand.nextInt(MAX_NUMBER -1) + 1;
+        return rand.nextInt(MAX_NUMBER - 1) + 1;
     }
 
     private void validateAndCheckGuess(String userInput) {
@@ -66,17 +70,17 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void displayCorrectAnswerToast() {
-        Toast.makeText(this, "You guessed correctly! The number was " + numberToGuess, Toast.LENGTH_LONG).show();
+        Toast.makeText(this, CORRECT_MSG + numberToGuess, Toast.LENGTH_LONG).show();
     }
 
     private void displayInvalidUserInputToast() {
-        Toast.makeText(this, "Invalid input (input must be between 1 and " + MAX_NUMBER + ")", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, INVALID_MSG, Toast.LENGTH_SHORT).show();
     }
 
     private void displayHintToast(Boolean higher) {
-        String message = "The correct answer is higher";
+        String message = HIGHER_MSG;
         if (higher) {
-            message = "The correct answer is lower";
+            message = LOWER_MSG;
         }
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
