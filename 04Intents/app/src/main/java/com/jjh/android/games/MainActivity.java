@@ -24,13 +24,9 @@ public class MainActivity extends AppCompatActivity {
         numberToGuess = generateRandomNumber();
     }
 
-    class ShowAlarmButtonHandler implements View.OnClickListener {
-
-        @Override
-        public void onClick(View v) {
-            Intent i = new Intent(AlarmClock.ACTION_SET_ALARM);
-            startActivity(i);
-        }
+    public void onShowAlarmButtonClick(View v) {
+        Intent i = new Intent(AlarmClock.ACTION_SET_ALARM);
+        startActivity(i);
     }
 
     @Override
@@ -41,9 +37,6 @@ public class MainActivity extends AppCompatActivity {
         userGuessTextField.setText("");
         TextView title = findViewById(R.id.title);
         title.setText(title.getText().toString() + MAX_NUMBER);
-
-        Button button = findViewById(R.id.alarmButton);
-        button.setOnClickListener(new ShowAlarmButtonHandler());
     }
 
     public void onGuessSubmit(View view) {
