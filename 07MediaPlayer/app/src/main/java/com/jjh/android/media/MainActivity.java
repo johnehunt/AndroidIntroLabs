@@ -15,7 +15,7 @@ public class MainActivity extends AppCompatActivity {
     private static final int forwardTime = 5000;
     private static final int backwardTime = 5000;
 
-    private Button fastForward, pause, play, rewind;
+    private Button pause, play;
     private MediaPlayer mediaPlayer;
 
     private boolean firstTime = true;
@@ -31,10 +31,10 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         // Setup buttons
-        fastForward = findViewById(R.id.forward);
+        Button fastForward = findViewById(R.id.forward);
         pause = findViewById(R.id.pause);
         play = findViewById(R.id.play);
-        rewind = findViewById(R.id.rewind);
+        Button rewind = findViewById(R.id.rewind);
 
         // Setup Handlers
         fastForward.setOnClickListener(new ForwardHandler());
