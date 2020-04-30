@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">MediaPlayerThreadedDemo</string>
+    <string name="demo_app">Demo App</string>
+    <string name="textview">Music Player</string>
+    <string name="pause">||</string>
+    <string name="play"><![CDATA[>]]></string>
+</resources>
