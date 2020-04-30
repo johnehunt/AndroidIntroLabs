@@ -16,9 +16,9 @@ public class PlayerService extends Service {
 
     private static final String TAG = "PlayerService";
 
-    private IBinder binder = new DemoBinder();
+    private final IBinder binder = new DemoBinder();
     MediaPlayer mediaPlayer;
-    ExecutorService executor;
+    private final ExecutorService executor;
 
     public PlayerService() {
         // ensures a single thread is reused and runnables
@@ -119,7 +119,7 @@ public class PlayerService extends Service {
     // methods don;t run on the UI thread.
     class PlayerHandlerThread extends HandlerThread {
 
-        public PlayerHandlerThread() {
+        PlayerHandlerThread() {
             super("PlayerHandlerThread");
         }
 

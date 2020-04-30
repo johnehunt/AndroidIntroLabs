@@ -16,7 +16,7 @@ import android.widget.Toast;
 public class MainActivity extends AppCompatActivity {
 
     PlayerService service;
-    Button pause, play, stop;
+    private Button pause, play, stop;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
