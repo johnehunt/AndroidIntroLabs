@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void onNotificationButtonClick(View v) {
         Log.d(TAG, "onNotificationButtonClick");
-        Intent intent = new Intent(MainActivity.this, GameNotificationService.class);
+        Intent intent = new Intent(this, GameNotificationService.class);
         startService(intent);
     }
 
