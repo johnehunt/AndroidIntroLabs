@@ -15,7 +15,7 @@ public class FactorialCalculationService extends IntentService {
     // Set up some constants for Activity to use
     public static final int SUCCESS = 1;
     public static final int ERROR = 2;
-    public static final String KEY = "number";
+    public static final String NUMBER = "number";
     public static final String RESULT = "result";
     public static final String RECEIVER = "receiver";
 
@@ -27,12 +27,12 @@ public class FactorialCalculationService extends IntentService {
     @Override
     protected void onHandleIntent(@Nullable Intent intent) {
         Log.d(TAG, "onHandleIntent()");
-        int numberToCalculate = intent.getIntExtra(KEY, 0);
         try {
             Thread.sleep(1000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+        int numberToCalculate = intent.getIntExtra(NUMBER, 0);
         int result = factorial(numberToCalculate);
         // Now need to return result from the service
         ResultReceiver receiver = intent.getParcelableExtra(RECEIVER);

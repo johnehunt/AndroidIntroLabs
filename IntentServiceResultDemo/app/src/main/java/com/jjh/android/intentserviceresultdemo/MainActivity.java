@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
         // Register the receiver
         intent.putExtra(FactorialCalculationService.RECEIVER, receiver);
         // Add data to be used by service
-        intent.putExtra(FactorialCalculationService.KEY, numberToCalculate);
+        intent.putExtra(FactorialCalculationService.NUMBER, numberToCalculate);
         // Start the service
         startService(intent);
     }
