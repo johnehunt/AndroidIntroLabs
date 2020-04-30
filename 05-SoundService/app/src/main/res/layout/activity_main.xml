@@ -35,11 +35,13 @@
         android:id="@+id/alarmButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:onClick="onShowAlarmButtonClick"
         android:text="Open Alarm" />
 
     <Button
         android:id="@+id/notificationButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:onClick="onNotificationButtonClick"
         android:text="Click Me" />
 </LinearLayout>

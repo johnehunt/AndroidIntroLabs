@@ -26,25 +26,26 @@ public class MainActivity extends AppCompatActivity {
         numberToGuess = generateRandomNumber();
     }
 
-    class ShowAlarmButtonHandler implements View.OnClickListener {
-
-        @Override
-        public void onClick(View v) {
-            Log.d("ShowAlarmBtnHandler", "onClick()");
-            Intent i = new Intent(AlarmClock.ACTION_SET_ALARM);
-            startActivity(i);
-        }
+    // Button handlers
+    public void onShowAlarmButtonClick(View v) {
+        Log.d(TAG, "onShowAlarmButtonClick()");
+        Intent i = new Intent(AlarmClock.ACTION_SET_ALARM);
+        startActivity(i);
     }
 
-    private class NotificationButtonHandler implements View.OnClickListener {
-
-        @Override
-        public void onClick(View v) {
-            Log.d("NotificationBtnHandler", "onClick");
-            Intent intent = new Intent(MainActivity.this, GameNotificationService.class);
-            startService(intent);
-        }
+    public void onNotificationButtonClick(View v) {
+        Log.d(TAG, "onNotificationButtonClick");
+        Intent intent = new Intent(MainActivity.this, GameNotificationService.class);
+        startService(intent);
     }
+
+    public void onGuessSubmit(View view) {
+        Log.d(TAG, "onGuessSubmit()");
+        String userInput = userGuessTextField.getText().toString();
+        validateAndCheckGuess(userInput);
+    }
+
+    // Lifecycle methods
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,18 +58,9 @@ public class MainActivity extends AppCompatActivity {
         TextView title = findViewById(R.id.title);
         title.setText(title.getText().toString() + MAX_NUMBER);
 
-        Button button = findViewById(R.id.alarmButton);
-        button.setOnClickListener(new ShowAlarmButtonHandler());
-
-        Button notificationButton = findViewById(R.id.notificationButton);
-        notificationButton.setOnClickListener(new NotificationButtonHandler());
     }
 
-    public void onGuessSubmit(View view) {
-        Log.d(TAG, "onGuessSubmit()");
-        String userInput = userGuessTextField.getText().toString();
-        validateAndCheckGuess(userInput);
-    }
+    // Application Logic
 
     private int generateRandomNumber() {
         Random rand = new Random();
