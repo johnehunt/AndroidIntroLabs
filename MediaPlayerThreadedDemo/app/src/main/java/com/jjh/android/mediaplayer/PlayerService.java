@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 public class PlayerService extends Service {
 
@@ -18,6 +19,11 @@ public class PlayerService extends Service {
 
     private final IBinder binder = new DemoBinder();
     MediaPlayer mediaPlayer;
+    // Flag to indicate whether MediaPlayer has completed initial preparation
+    // or not.
+    private AtomicBoolean playerAvailable = new AtomicBoolean(false);
+
+    // Handles execution of all threads
     private final ExecutorService executor;
 
     public PlayerService() {
@@ -28,49 +34,57 @@ public class PlayerService extends Service {
 
     // Service Functionality - each runs in a background thread
     public void start() {
-        Thread t = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                mediaPlayer.start();
-            }
-        });
-        executor.execute(t);
+        if (playerAvailable.get()) {
+            Thread t = new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    mediaPlayer.start();
+                }
+            });
+            executor.execute(t);
+        }
     }
 
     public void pause() {
-        Thread t = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                mediaPlayer.pause();
-            }
-        });
-        executor.execute(t);
+        if (playerAvailable.get()) {
+            Thread t = new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    mediaPlayer.pause();
+                }
+            });
+            executor.execute(t);
+        }
     }
 
     public void stop() {
-        Thread t = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                mediaPlayer.stop();
-            }
-        });
-        executor.execute(t);
+        if (playerAvailable.get()) {
+            Thread t = new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    mediaPlayer.stop();
+                }
+            });
+            executor.execute(t);
+        }
     }
 
     public void prepare() {
-        Thread t = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    // Need to prepare mediaPlayer
-                    // so that it can play another tune
-                    mediaPlayer.prepare();
-                } catch (Exception exp) {
-                    Log.d("PlayerService", "MediaPlayer problem", exp);
+        if (playerAvailable.get()) {
+            Thread t = new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        // Need to prepare mediaPlayer
+                        // so that it can play another tune
+                        mediaPlayer.prepare();
+                    } catch (Exception exp) {
+                        Log.d("PlayerService", "MediaPlayer problem", exp);
+                    }
                 }
-            }
-        });
-        executor.execute(t);
+            });
+            executor.execute(t);
+        }
     }
 
     public class DemoBinder extends Binder {
@@ -103,6 +117,7 @@ public class PlayerService extends Service {
             if (mediaPlayer.isPlaying()) {
                 mediaPlayer.stop();
             }
+            playerAvailable.set(false);
             mediaPlayer.release();
             mediaPlayer = null;
         } catch (Exception exp) {
@@ -116,7 +131,7 @@ public class PlayerService extends Service {
     // Handler Thread class
     // Need to run in a HandlerThread for call backs to run in this thread
     // Handler threads gave a looper which is required to ensure callback
-    // methods don;t run on the UI thread.
+    // methods don't run on the UI thread.
     class PlayerHandlerThread extends HandlerThread {
 
         PlayerHandlerThread() {
@@ -128,6 +143,7 @@ public class PlayerService extends Service {
             mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
                 public void onPrepared(MediaPlayer mp) {
                     Log.e("onLooperPrepared", mp.toString());
+                    playerAvailable.set(true);
                 }
             });
         }
