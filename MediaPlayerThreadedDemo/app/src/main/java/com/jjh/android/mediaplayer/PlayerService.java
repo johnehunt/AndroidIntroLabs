@@ -35,13 +35,13 @@ public class PlayerService extends Service {
     // Service Functionality - each runs in a background thread
     public void start() {
         if (playerAvailable.get()) {
-            Thread t = new Thread(new Runnable() {
+            Runnable r = new Runnable() {
                 @Override
                 public void run() {
                     mediaPlayer.start();
                 }
-            });
-            executor.execute(t);
+            };
+            executor.execute(r);
         }
     }
 
