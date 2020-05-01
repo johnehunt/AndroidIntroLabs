@@ -21,7 +21,7 @@ public class PlayerService extends Service {
     MediaPlayer mediaPlayer;
     // Flag to indicate whether MediaPlayer has completed initial preparation
     // or not.
-    private AtomicBoolean playerAvailable = new AtomicBoolean(false);
+    private final AtomicBoolean playerAvailable = new AtomicBoolean(false);
 
     // Handles execution of all threads
     private final ExecutorService executor;
@@ -47,31 +47,31 @@ public class PlayerService extends Service {
 
     public void pause() {
         if (playerAvailable.get()) {
-            Thread t = new Thread(new Runnable() {
+            Runnable r = new Runnable() {
                 @Override
                 public void run() {
                     mediaPlayer.pause();
                 }
-            });
-            executor.execute(t);
+            };
+            executor.execute(r);
         }
     }
 
     public void stop() {
         if (playerAvailable.get()) {
-            Thread t = new Thread(new Runnable() {
+            Runnable r = new Runnable() {
                 @Override
                 public void run() {
                     mediaPlayer.stop();
                 }
-            });
-            executor.execute(t);
+            };
+            executor.execute(r);
         }
     }
 
     public void prepare() {
         if (playerAvailable.get()) {
-            Thread t = new Thread(new Runnable() {
+            Runnable r = new Runnable() {
                 @Override
                 public void run() {
                     try {
@@ -82,8 +82,8 @@ public class PlayerService extends Service {
                         Log.d("PlayerService", "MediaPlayer problem", exp);
                     }
                 }
-            });
-            executor.execute(t);
+            };
+            executor.execute(r);
         }
     }
 
@@ -132,12 +132,14 @@ public class PlayerService extends Service {
     // Need to run in a HandlerThread for call backs to run in this thread
     // Handler threads gave a looper which is required to ensure callback
     // methods don't run on the UI thread.
+    // class PlayerHandlerThread extends Thread {
     class PlayerHandlerThread extends HandlerThread {
 
         PlayerHandlerThread() {
             super("PlayerHandlerThread");
         }
 
+        //public void run() {
         public void onLooperPrepared() {
             mediaPlayer = MediaPlayer.create(PlayerService.this, R.raw.song);
             mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
